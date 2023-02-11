@@ -344,6 +344,13 @@
                       >
                         <v-tab>Scan</v-tab>
                         <v-tab>Copy</v-tab>
+                        <UIExtensionSlot
+                          v-if="
+                            Object.keys($getExtendSlot('checkout_payment_tab'))
+                              .length > 0
+                          "
+                          name="checkout_payment_tab"
+                        />
                       </v-tabs>
                       <v-divider />
                       <v-tabs-items
@@ -471,6 +478,19 @@
                               </v-card-text>
                             </v-card>
                           </v-tab-item>
+                          <UIExtensionSlot
+                            v-if="
+                              Object.keys(
+                                $getExtendSlot('checkout_payment_tab')
+                              ).length > 0
+                            "
+                            name="checkout_payment_content"
+                            :store="store"
+                            :invoice="invoice"
+                            :tickerTo="itemv.currency"
+                            :toCurrencyAddress="itemv.payment_address"
+                            :toCurrencyDue="itemv.amount"
+                          />
                         </UIExtensionSlot>
                       </v-tabs-items>
                     </v-container>
